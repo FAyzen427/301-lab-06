@@ -1,46 +1,87 @@
 package com.example.listycity;
 
+import java.util.Objects;
+
 /**
- * This is a class that defines a City.
+ * This class represents a City with a city name and a province name.
+ * It implements Comparable so cities can be sorted alphabetically by city name.
  */
 public class City implements Comparable<City> {
 
+    /**
+     * The name of the city.
+     */
     private String city;
+
+    /**
+     * The name of the province.
+     */
     private String province;
 
     /**
-     * This constructs a City with a city name and province name.
-     * @param city The city name
-     * @param province The province name
+     * Constructs a City with a given city name and province name.
+     *
+     * @param city     The name of the city
+     * @param province The name of the province
      */
-    City(String city, String province) {
+    public City(String city, String province) {
         this.city = city;
         this.province = province;
     }
 
     /**
-     * Gets the city name.
-     * @return city name
+     * Returns the name of the city.
+     *
+     * @return the city name
      */
-    String getCityName() {
+    public String getCityName() {
         return this.city;
     }
 
     /**
-     * Gets the province name.
-     * @return province name
+     * Returns the name of the province.
+     *
+     * @return the province name
      */
-    String getProvinceName() {
+    public String getProvinceName() {
         return this.province;
     }
 
     /**
-     * Compares two City objects by city name (lexicographically).
-     * @param other the other City
-     * @return comparison result
+     * Compares this City to another City based on city name
+     *
+     * @param other the City to compare with
+     * @return negative if this city comes before,
+     *         zero if equal,
+     *         positive if after
      */
     @Override
     public int compareTo(City other) {
         return this.city.compareTo(other.getCityName());
+    }
+
+    /**
+     * Checks if two City objects are equal based on city name and province.
+     *
+     * @param o the object to compare
+     * @return true if both city and province match, otherwise false
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof City)) return false;
+        City other = (City) o;
+        return Objects.equals(city, other.city) &&
+                Objects.equals(province, other.province);
+    }
+
+    /**
+     * Generates a hash code based on city and province.
+     *
+     * @return hash code value
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(city, province);
     }
 }
